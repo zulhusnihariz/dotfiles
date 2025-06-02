@@ -19,6 +19,9 @@ cd "$GIT_REPO_DIR" || { echo "Destination directory not found!"; exit 1; }
 for folder in "${folders[@]}"; do
   SRC_PATH="$SRC_BASE/$folder"
   DEST_PATH="$DEST_BASE/$folder"
+
+  echo "$SRC_PATH"
+  echo "$DEST_PATH"
   
   if [ -d "$SRC_PATH" ]; then
     echo "Copying $SRC_PATH to $DEST_PATH"
