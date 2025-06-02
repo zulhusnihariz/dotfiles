@@ -1,0 +1,5 @@
+window-theme=dark
+font-family="Menlo"
+font-size=12
+shell-integration=bash
+theme = Monokai Classic

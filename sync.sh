@@ -3,8 +3,7 @@
 CONFIG_BASE_PATH="$HOME/.config"
 DOTFILES_BASE_PATH="$HOME/dotfiles"
 
-
-folders={"rofi" "waybar" "ghostty" "sway" "tmux" "bash"}
+folders=("rofi" "waybar" "ghostty" "sway" "tmux" "bash")
 
 # Define source base and destination base
 SRC_BASE="$HOME/.config"
