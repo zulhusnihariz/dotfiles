@@ -236,6 +236,7 @@ titlebar_padding 1 1
 
 # Auto startup
 exec nm-applet --indicator
+exec mako
  
 #
 # Status Bar:
