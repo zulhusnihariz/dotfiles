@@ -22,26 +22,35 @@ find_dir(){
   fd --type d --exclude '.*' . "${1:-.}" 2> /dev/null | fzf +m
 }
 
-# fzf directories and cd into it
+# Assumes find_dir is a function or command available in your environment.
 fdd() {
-  cd ~
+  cd ~ || return
   local dir
-  dir=$(find_dir "$@") && cd "$dir"
+  dir=$(find_dir "$@") && cd "$dir" || return
 }
 
 # fzf directories and open it with vscode
 fdc() {
-  cd ~/Documents
+  cd ~/Documents || return
   local dir
   dir=$(find_dir "$@") && code "$dir"
 }
 
-# fzf cli history
+# fzf cli history search and execute selected command
 fch() {
-  print -z "$( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')"
+  # Get history lines, reverse order (-r), and pass to fzf
+  local cmd
+  cmd=$(history | tac | fzf +s --tac | sed 's/ *[0-9]* *//')
+  read -e -i "$cmd" -p "Command: " input
+  echo "Running: $input"
+  eval "$input"
 }
 
 bind '"\C-f":"tmux-sessionizer\n"'
 
 # source ~/.nvm/nvm.sh
 alias python=/usr/local/bin/python3
+alias hibernate='systemctl suspend'
+
+
+

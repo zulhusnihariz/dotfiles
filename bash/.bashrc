@@ -18,7 +18,7 @@ if [ -x "$(command -v go)" ] && [ -d "$(go env GOPATH)/bin" ]; then
     PATH="$(go env GOPATH)/bin:$PATH"
 fi
 
-source ./.bash_profile
+source $HOME/.config/bash/.bash_profile
 
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
