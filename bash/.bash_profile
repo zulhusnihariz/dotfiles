@@ -51,6 +51,7 @@ bind '"\C-f":"tmux-sessionizer\n"'
 # source ~/.nvm/nvm.sh
 alias python=/usr/local/bin/python3
 alias hibernate='systemctl suspend'
+alias dsync='bash $HOME/dotfiles/sync.sh'
 
 
 

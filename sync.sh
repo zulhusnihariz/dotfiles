@@ -1,16 +1,34 @@
 #!/bin/bash
 
-CONFIG_BASE_PATH="$HOME/.config"
-DOTFILES_BASE_PATH="$HOME/dotfiles"
-
-folders=("rofi" "waybar" "ghostty" "sway" "tmux" "bash")
 
 # Define source base and destination base
 SRC_BASE="$HOME/.config"
 DEST_BASE="$HOME/dotfiles"
 
-GIT_REPO_DIR="$DEST_BASE"
+# Sync nvim config to submodule directory
+NVIM_SRC="$SRC_BASE/nvim"
+NVIM_DEST="$DEST_BASE/nvim"
 
+if [ -d "$NVIM_SRC" ]; then
+  echo "Syncing $NVIM_SRC to $NVIM_DEST (submodule)"
+  rsync -av --delete "$NVIM_SRC/" "$NVIM_DEST/"
+  # Commit and push in the submodule
+  cd "$NVIM_DEST" || { echo "Failed to enter nvim submodule dir!"; exit 1; }
+  git add .
+  git commit -m "update nvim config: $(date '+%Y-%m-%d %H:%M:%S')" || echo "No changes to commit in nvim"
+  git push origin main  # or the correct branch for nvim repo
+  cd "$GIT_REPO_DIR" || exit 1
+else
+  echo "Warning: $NVIM_SRC does not exist, skipping nvim sync."
+fi
+
+
+CONFIG_BASE_PATH="$HOME/.config"
+DOTFILES_BASE_PATH="$HOME/dotfiles"
+
+folders=("rofi" "waybar" "ghostty" "sway" "tmux" "bash")
+
+GIT_REPO_DIR="$DEST_BASE"
 # Change to destination directory
 cd "$GIT_REPO_DIR" || { echo "Destination directory not found!"; exit 1; }
 
@@ -40,7 +58,12 @@ git add .
 commit_msg="update config backup: $(date '+%Y-%m-%d %H:%M:%S')"
 git commit -m "$commit_msg"
 
-echo "Pushing to GitHub..."
+echo "Pushing dotfiles"
 git push origin main  # Change branch name if your repo uses a different default branch
 
 echo "Done!"
+
+
+
+
+
