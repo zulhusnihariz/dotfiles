@@ -10,9 +10,7 @@ if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
     PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
 
-export PATH="$PATH:/opt/go/bin"
-export PATH="$PATH":"/bin/.local/scripts/"
-export PATH
+export PATH="$PATH:/opt/go/bin:/bin/.local/scripts/"
 
 if [ -x "$(command -v go)" ] && [ -d "$(go env GOPATH)/bin" ]; then
     PATH="$(go env GOPATH)/bin:$PATH"
